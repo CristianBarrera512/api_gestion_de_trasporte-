@@ -9,7 +9,7 @@ class DefaultPageNumberPagination(PageNumberPagination):
     def paginate_queryset(self, queryset, request, view=None):
         page_size = request.query_params.get(self.page_size_query_param)
 
-        if page_size == '-1':
+        if page_size == '10':
             return None
 
         return super().paginate_queryset(queryset, request, view)

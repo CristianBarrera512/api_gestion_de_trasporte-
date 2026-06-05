@@ -2,7 +2,15 @@ from django.db import models
 
 
 
-class Vehiculo ( models.Model):
+class BaseModel(models.Model):
+    usuario_creacion = models.CharField(max_length=150, null=True, blank=True)
+    usuario_modificacion = models.CharField(max_length=150, null=True, blank=True)
+    class Meta:
+        abstract = True
+
+
+
+class Vehiculo (BaseModel):
     id_vehiculo = models.AutoField(primary_key=True)
     placa = models.CharField(max_length=15)
     modelo = models.CharField(max_length=30)
@@ -17,7 +25,7 @@ class Vehiculo ( models.Model):
         db_table = 'vehiculo'
 
 
-class Aseguradora(models.Model):
+class Aseguradora(BaseModel):
     id_aseguradora = models.AutoField(primary_key=True)
     nombre_aseguradora= models.CharField(max_length=100)
     telefono = models.CharField(max_length=20)
@@ -32,7 +40,7 @@ class Aseguradora(models.Model):
         db_table = 'aseguradora'
 
 
-class Empresa(models.Model):
+class Empresa(BaseModel):
     id_empresa = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     direccion = models.CharField(max_length=200)
@@ -47,8 +55,8 @@ class Empresa(models.Model):
         db_table = 'empresa'
 
 
-class Documentacion(models.Model):
-    id_documento = models.AutoField(primary_key=True)
+class Documentacion(BaseModel):
+    id_documentos = models.AutoField(primary_key=True)
     tipo_documento = models.CharField(max_length=50)
     numero_documento = models.CharField(max_length=50)
 
@@ -62,7 +70,7 @@ class Documentacion(models.Model):
         db_table = 'documentacion'
 
 
-class Licencias(models.Model):
+class Licencias(BaseModel):
     id_licencias = models.AutoField(primary_key=True)
     numero_licencia = models.CharField(max_length=50)
     categoria = models.CharField(max_length=20)
@@ -76,7 +84,7 @@ class Licencias(models.Model):
     class Meta:
         db_table = 'licencias'
 
-class Conductores(models.Model):
+class Conductores(BaseModel):
     id_conductores = models.AutoField(primary_key=True)
     id_aseguradora = models.ForeignKey(
         Aseguradora,
@@ -112,7 +120,7 @@ class Conductores(models.Model):
         db_table = 'conductores'
 
 
-class Rutas (models.Model):
+class Rutas (BaseModel):
     id_rutas= models.AutoField(primary_key=True)
     nombre_ruta = models.CharField(max_length=200)
     lugar_salida = models.CharField(max_length=150)
@@ -126,7 +134,7 @@ class Rutas (models.Model):
     class Meta:
         db_table = 'rutas'
 
-class Viajes (models.Model):
+class Viajes (BaseModel):
     id_viajes = models.AutoField(primary_key=True)
     id_ruta = models.ForeignKey(
         Rutas,
@@ -142,11 +150,11 @@ class Viajes (models.Model):
     fecha_modificacion = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.id_viajes
+        return f"Viaje {self.id_viajes}"
     class Meta:
         db_table = 'viajes'
 
-class Pasajeros (models.Model):
+class Pasajeros (BaseModel):
     id_pasajeros = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     id_documento = models.ForeignKey(
@@ -163,7 +171,7 @@ class Pasajeros (models.Model):
     class Meta:
         db_table = 'pasajeros'
 
-class Boletos (models.Model):
+class Boletos (BaseModel):
     id_boletos = models.AutoField(primary_key=True)
     id_pasajero = models.ForeignKey(
         Pasajeros,
@@ -190,12 +198,15 @@ class Boletos (models.Model):
         ],
         default='Reservado'
     )
+    activo = models.BooleanField(default=True)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_modificacion = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.numero_asiento
     class Meta:
         db_table = 'boletos'
 
-class Estaciones (models.Model):
+class Estaciones (BaseModel):
     id_estaciones = models.AutoField(primary_key=True)
     nombre_estacion = models.CharField(max_length=150)
     id_rutas= models.ForeignKey(
@@ -213,7 +224,7 @@ class Estaciones (models.Model):
         db_table = 'estaciones'
 
 
-class Mantenimiento (models.Model):
+class Mantenimiento (BaseModel):
     id_mantenimiento= models.AutoField(primary_key=True)
     id_vehiculo = models.ForeignKey(
         Vehiculo,
@@ -231,4 +242,3 @@ class Mantenimiento (models.Model):
 
 
 
-    

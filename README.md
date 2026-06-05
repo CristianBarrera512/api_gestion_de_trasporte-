@@ -6,7 +6,9 @@ proyecto para la evaluacion de apis desde ceros individual para ADSO
 - Informacion general 
     - Sistema de gestion de trasporte 
     - Cristian David Barrera 
-    - 
+    - Una empresa de transporte requiere administrar conductores, vehículos,     rutas,     viajes,
+    pasajeros, boletos, estaciones y mantenimientos.
+
 
 - Tecnologias utilizadas
     - Python 
@@ -47,13 +49,14 @@ pip install -r requirements.txt
 Crear un archivo `.env` en la raíz del proyecto:
 
 ```env
-SECRET_KEY=tu_clave_secreta
+API_PORT=8080
 DEBUG=True
-DB_NAME=mi_base_datos
+DB_NAME=Transmilenio
 DB_USER=postgres
 DB_PASSWORD=postgres
-DB_HOST=localhost
+DB_HOST=127.0.0.1
 DB_PORT=5432
+DB_SCHEMA=gestion_vehicular
 ```
 
 ### Aplicar migraciones
@@ -79,6 +82,9 @@ python manage.py runserver
 
 ```text
 http://127.0.0.1:8000/
+http://127.0.0.1:8000/admin/
+http://127.0.0.1:8000/api/v1/
+http://127.0.0.1:8000/swagger/
 ```
 
 ## Guia de Aprendizaje 
