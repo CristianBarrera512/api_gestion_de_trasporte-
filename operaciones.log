@@ -1,0 +1,13 @@
+CREAR | Aseguradora id=2 nombre_aseguradora=fdfds
+CREAR | Aseguradora id=13 nombre_aseguradora=13
+CREAR | Documento id=13
+CREAR | Empresa id=13 nombre=CACO
+CREAR | Boleto id=13
+CREAR | Boleto id=14
+CREAR | Conductor id=13 nombre=Carlos Gómez
+CREAR | Estacion id=25
+CREAR | Mantenimiento id=13
+CREAR | Pasajero id=13 nombre=Juan Pérez
+CREAR | Ruta id=13 nombre=Bogotá - Soacha
+CREAR | Vehiculo id=13 placa=string
+CREAR | Viaje id=13
